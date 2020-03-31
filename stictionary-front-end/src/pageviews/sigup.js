@@ -11,6 +11,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
+import config from '../config/loginAndRegisterConfig.js';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
 
     const [userInfo, setUserInfo] = useState({
         firstName: "",
@@ -44,6 +46,16 @@ export default function SignUp() {
     const onChangeHandler = (e) => {
         setUserInfo({ ...userInfo, [e.target.name]: e.target.value })
         console.log(userInfo);
+    }
+
+    const onSubmitHandler = (e) => {
+        e.preventDeafult();
+
+      axios.post('http://localhost:8000/users/register', JSON.stringify(userInfo), config)
+      .then(res => {
+       props.history.push('/dashboard');
+     })
+     .catch(e => console.log(e));
     }
 
   const classes = useStyles();

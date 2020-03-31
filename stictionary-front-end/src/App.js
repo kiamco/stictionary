@@ -14,7 +14,7 @@ const App = (props) => {
     <div className="App">
       <Route  component={NavBar} />
       <Route exact path='/login' render={(props) => <LoginPage {...props}/>} />
-      <Route  exact path='/signup' component={SignUpPage}/>
+      <Route  exact path='/signup' render={(props) => <SignUpPage {...props}/>}/>
       <Box mt={5}>
         <Footer/>
       </Box>

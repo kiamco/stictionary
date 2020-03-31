@@ -18,7 +18,7 @@ Router.post('/register', (req, res) => {
         .then(users => {
             res.status(201).json({
                 users,
-                message: `Successfully created user: ${user.username} `
+                message: `Successfully created user: ${user.email} `
             })
         })
         .catch(err => {

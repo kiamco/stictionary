@@ -3,15 +3,14 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import config from '../config/loginAndRegisterConfig.js';
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,16 +33,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
 
   const [userInfo, setUserInfo] = useState({
-    email:"",
+    username:"",
     password:""
   });
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const onChangeHandler = (e) => {
     setUserInfo({...userInfo, [e.target.name]:e.target.value})
     console.log(userInfo);
+  }
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault()
+    setIsLoading(true);
+    
+    //login
+    axios.post('http://localhost:8000/users/login', JSON.stringify(userInfo), config)
+     .then(res => {
+       setIsLoading(false);
+       props.history.push('/dashboard');
+     })
+     .catch(e => console.log(e));
   }
 
   const classes = useStyles();
@@ -58,15 +72,15 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={onSubmitHandler}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
+            id="username"
+            label="username"
+            name="username"
             autoComplete="email"
             autoFocus
             onChange={onChangeHandler}
