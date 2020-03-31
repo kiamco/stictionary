@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import LoginPage from './pageviews/login.js';
+import SignUpPage from './pageviews/sigup.js';
+import { Route } from 'react-router-dom';
+import Box from '@material-ui/core/Box';
+import Footer from './components/footer.js';
+import NavBar from './components/navbar.js';
 
-function App() {
+const App = (props) => {
+  console.log(props.history);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Route  component={NavBar} />
+      <Route exact path='/login' render={(props) => <LoginPage {...props}/>} />
+      <Route  exact path='/signup' component={SignUpPage}/>
+      <Box mt={5}>
+        <Footer/>
+      </Box>
     </div>
   );
 }
