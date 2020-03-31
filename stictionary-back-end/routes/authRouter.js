@@ -32,15 +32,15 @@ Router.post('/register', (req, res) => {
 });
 
 Router.post('/login', (req, res) => {
-    let { username, password } = req.body;
+    let { email, password } = req.body;
     
     /* write function to add user to login*/
-    userModel.findByUser(username)
+    userModel.findByEmail(email)
     .then(item => {
             if (item && bycrypt.compareSync(password, item[0].password)) {
                 const token = genToken(item[0]);
                 res.status(200).json({
-                    username: item[0].username,
+                    email: item[0].email,
                     token: token
                 });
             } else {

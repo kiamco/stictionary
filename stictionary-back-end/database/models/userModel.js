@@ -5,8 +5,8 @@ const find = () => {
     return db('users').select('*');
 }
 
-const findByUser = (user) => {
-    return db('users').select('*').where('username', user);
+const findByEmail = (user) => {
+    return db('users').select('*').where('email', user);
 }
 
 const addUser = (userObj) => {
@@ -15,6 +15,6 @@ const addUser = (userObj) => {
 
 module.exports = {
     find,
-    findByUser,
+    findByEmail,
     addUser
 }
