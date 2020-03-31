@@ -49,7 +49,7 @@ export default function SignUp(props) {
     }
 
     const onSubmitHandler = (e) => {
-        e.preventDeafult();
+        e.preventDefault();
 
       axios.post('http://localhost:8000/users/register', JSON.stringify(userInfo), config)
       .then(res => {
@@ -70,7 +70,7 @@ export default function SignUp(props) {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={onSubmitHandler}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
