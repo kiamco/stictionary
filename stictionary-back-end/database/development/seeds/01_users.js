@@ -7,8 +7,10 @@ exports.seed = function(knex) {
             // Inserts seed entries
             const salt = bcrypt.genSaltSync(10);;
             return knex('users').insert([{
-                username: 'kimbo',
+                username: 'test',
+                email: 'test@gmail.com',
                 password: bcrypt.hashSync("test", salt)
+                
             }, ]);
         });
 };

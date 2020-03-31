@@ -33,7 +33,7 @@ Router.post('/register', (req, res) => {
 
 Router.post('/login', (req, res) => {
     let { username, password } = req.body;
-
+    
     /* write function to add user to login*/
     userModel.findByUser(username)
     .then(item => {
